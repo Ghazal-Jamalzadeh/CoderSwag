@@ -11,10 +11,10 @@ import com.jmzd.ghazal.coderswag.R
 import com.jmzd.ghazal.coderswag.model.Category
 
 
-class CategoryAdapter(context: Context, categories: List<Category>) : BaseAdapter(){
-
-    val context = context
-    val categories = categories
+class CategoryAdapter( val context: Context, val categories: List<Category>) : BaseAdapter(){
+    // R-click -> move to constructor
+//    val context = context
+//    val categories = categories
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val categoryView: View

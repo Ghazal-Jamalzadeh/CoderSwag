@@ -4,15 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jmzd.ghazal.coderswag.R
 import com.jmzd.ghazal.coderswag.adapters.CategoryAdapter
+import com.jmzd.ghazal.coderswag.adapters.CategoryRecycleAdapter
 import com.jmzd.ghazal.coderswag.databinding.ActivityMainBinding
 import com.jmzd.ghazal.coderswag.model.Category
 import com.jmzd.ghazal.coderswag.services.DataService
 
 class MainActivity : AppCompatActivity() {
    // lateinit var adapter: ArrayAdapter<Category>
-    lateinit var adapter: CategoryAdapter
+    lateinit var adapter: CategoryRecycleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +29,13 @@ class MainActivity : AppCompatActivity() {
 //            android.R.layout.simple_list_item_1,
 //            DataService.categories
 //        ) // context , layout , data
-        adapter = CategoryAdapter(this, DataService.categories)
+
+        adapter = CategoryRecycleAdapter(this, DataService.categories)
         binding.categoryListView.adapter = adapter
 
-        binding.categoryListView.setOnItemClickListener{ adapterView , view , i , l ->
-            val category = DataService.categories[i]
-            Toast.makeText(this , "you clicked on ${category.title} cell" , Toast.LENGTH_SHORT).show()
-        }
+        // ریسایکلر ویو برعکس لیست ویو نیاز به layout manager دارد. چند تا حالت دارد.
+        // linearLayout -> ریسایکل ویو افقی | Grid
+        val layoutManager = LinearLayoutManager(this)
+        binding.categoryListView.layoutManager = layoutManager
+        binding.categoryListView.setHasFixedSize(true)
 }}
